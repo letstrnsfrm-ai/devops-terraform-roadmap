@@ -25,7 +25,7 @@ devops-terraform-roadmap/
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/777abhi/devops-terraform-roadmap.git
+   git clone https://github.com/letstrnsfrm-ai/devops-terraform-roadmap.git
    cd devops-terraform-roadmap
    ```
 
