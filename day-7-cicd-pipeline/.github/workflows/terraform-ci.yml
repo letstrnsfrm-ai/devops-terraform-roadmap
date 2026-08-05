@@ -1,0 +1,38 @@
+name: "Terraform Infrastructure Quality Gate"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  terraform-ci:
+    name: "Lint, Scan & Plan"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform CLI
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+
+      - name: 1. Enforce Code Formatting Check
+        run: terraform fmt -check
+
+      - name: 2. Validate HCL Syntax
+        run: |
+          terraform init -backend=false
+          terraform validate
+
+      - name: 3. Static Security Scan
+        uses: bridgecrewio/checkov-action@master
+        with:
+          framework: terraform
+          output_format: cli
+
+      - name: 4. Generate Execution Plan
+        run: terraform plan -no-color -out=tfplan
