@@ -4,6 +4,10 @@
 *.tfstate.*
 .terraform.lock.hcl
 terraform
+tflint
+**/terraform
+**/tflint
+tfplan
 
 # System & OS files
 .DS_Store
